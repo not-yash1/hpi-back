@@ -14,6 +14,7 @@ export const sendMail = async (options) => {
 
     const mailOptions = {
         from: process.env.SMPT_MAIL,
+        subject: options.subject,
         to: options.email,
         text: options.message,
     };

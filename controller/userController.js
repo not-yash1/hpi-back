@@ -1,17 +1,12 @@
-import { Brochure } from '../models/brochureSchema.js'
 import { User } from '../models/userModel.js'
-import cloudinary from 'cloudinary'
-import fs from 'fs'
-import axios from 'axios'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { sendMail } from '../middlewares/sendMail.js'
 
 export const brochureDownload = async (req, res) => {
     try {
-
         const files = [
-            'The Emperor.pdf', 'The Crown.pdf', 'LIC.pdf'
+            'The Crown.pdf', 'The Emperor.pdf', 'LIC.pdf'
         ]
 
         const { name, email, mob, val } = req.body
@@ -46,6 +41,14 @@ export const brochureDownload = async (req, res) => {
         res.removeHeader('Content-Type');
 
         res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; frame-src 'none'; media-src 'self'");
+
+        const message = `Hey, I am ${name}. My email is ${email}. I am interested in ${files[val]}.`;
+
+        await sendMail({
+            email: process.env.SALE_MAIL,
+            subject: 'Brochure Download',
+            message
+        })
 
         res.download(filePath, fName, (err) => {
             if (err) {
@@ -84,7 +87,8 @@ export const contactUs = async (req, res) => {
         const message = `Hey, I am ${fName}. My email is ${email}. And my full message is ${msg}.`;
 
         await sendMail({
-            email,
+            email: process.env.SALE_MAIL,
+            subject: 'Contact Us',
             message
         })
 
