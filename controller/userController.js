@@ -50,6 +50,12 @@ export const brochureDownload = async (req, res) => {
             message
         })
 
+        await sendMail({
+            email: process.env.SALE_MAIL2,
+            subject: 'Brochure Download',
+            message
+        })
+
         res.download(filePath, fName, (err) => {
             if (err) {
                 console.error('Error downloading the file:', err);
@@ -88,6 +94,12 @@ export const contactUs = async (req, res) => {
 
         await sendMail({
             email: process.env.SALE_MAIL,
+            subject: 'Contact Us',
+            message
+        })
+
+        await sendMail({
+            email: process.env.SALE_MAIL2,
             subject: 'Contact Us',
             message
         })
