@@ -42,7 +42,7 @@ export const brochureDownload = async (req, res) => {
 
         res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; frame-src 'none'; media-src 'self'");
 
-        const message = `Hey, I am ${name}. My email is ${email}. I am interested in ${files[val]}.`;
+        const message = `Hey, I am ${name}. My email is ${email} and my mobile number is ${mob}. I am interested in ${files[val]}.`;
 
         await sendMail({
             email: process.env.SALE_MAIL,
